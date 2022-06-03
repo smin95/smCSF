@@ -66,7 +66,7 @@ sm_findQCSF <- function(spatFreq, logGain, logCenter, octaveWidth, logTrunc) {
   leftCSF <- ((logP < truncHalf) & (spatFreq < logCenter)) * truncHalf
   rightCSF <- ((logP >= truncHalf) | (spatFreq > logCenter)) * logP
 
-  logCSF <-  (leftCSF + rightCSF)
+  logCSF <- (leftCSF + rightCSF)
 
 
   if (any(logCSF < 0)) {
