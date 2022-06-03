@@ -23,8 +23,6 @@
 #'
 #' Linear units of contrast sensitivity data, not log.
 #'
-#' @return
-#' @export
 #'
 #' @examples
 sm_fitCSF <- function(param, x, y) {

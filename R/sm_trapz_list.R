@@ -43,12 +43,8 @@
 #' When this argument is set to TRUE, the function will convert the x and y values
 #' into log10 units, and then perform the integration. If it is set to FALSE,
 #' the function will keep the data values as they are.
-#'
-#' @return
-#'
 #' @importFrom stats na.omit
 #'
-#' @export
 #'
 #' @examples
 sm_trapz_list <- function(data, subjects, groups, conditions, x, values, logXY = TRUE) {

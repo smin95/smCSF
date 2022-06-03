@@ -56,13 +56,9 @@
 #' contrast sensitivity function, such as `alpha = 0.5` or
 #' `color = sm_color('blue')`.
 #'
-#' @return
-#'
 #' @importFrom ggplot2 ggproto Geom draw_key_polygon layer Stat aes
 #' @importFrom grid polygonGrob gList
 #' @importFrom stats complete.cases
-#'
-#' @export
 #'
 #' @examples
 #'

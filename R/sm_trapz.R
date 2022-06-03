@@ -14,9 +14,6 @@
 #' into log10 units, and then perform the integration. If it is set to FALSE,
 #' the fuction will keep the data values as they are.
 #'
-#' @return
-#' @export
-#'
 #' @importFrom zoo rollmean
 #'
 #' @examples

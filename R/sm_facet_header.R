@@ -1,4 +1,4 @@
-#' Customising the aesthetics of the facet header.
+#' Customizing the aesthetics of the facet header.
 #'
 #' @param font_size
 #' Font size of the facet header. Number referring to the font size
@@ -12,9 +12,7 @@
 #' The font weight, such as 'bold', 'plain', 'italic', 'bold.italic' can
 #' be specified here.
 #'
-#'
-#' @return
-#' @export
+
 #' @importFrom ggplot2 theme
 #'
 #' @examples

@@ -32,8 +32,6 @@
 #' 4) truncation value.
 #'
 #'
-#' @return
-#' @export
 #' @importFrom zoo rollmean
 #'
 #' @examples

@@ -15,8 +15,6 @@
 #' Character string that comes after the factor level as specified by the
 #' column of the data frame `df_column`.
 #'
-#' @return
-#' @export
 #'
 #' @examples
 sm_facet_label <- function(str1, sep_by  = " ", df_column,

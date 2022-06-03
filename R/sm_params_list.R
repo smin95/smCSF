@@ -53,10 +53,8 @@
 #' in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 #' 4) truncation value.
 #'
-#' @return
 #'
 #' @importFrom stats na.omit
-#' @export
 #'
 #' @examples
 sm_params_list <- function(data, subjects, groups, conditions, x,

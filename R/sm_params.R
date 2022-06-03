@@ -23,8 +23,6 @@
 #' in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 #' 4) truncation value.
 #'
-#' @return
-#' @export
 #' @importFrom stats optim
 #'
 #' @examples

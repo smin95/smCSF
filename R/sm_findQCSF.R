@@ -45,8 +45,6 @@
 #' @param logTrunc
 #' This refers to the truncation value. It should be provided in log10 units.
 #'
-#' @return
-#' @export
 #'
 #' @references
 #'
