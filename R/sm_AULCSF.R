@@ -40,7 +40,7 @@
 #' x <- c(0.25,0.35,0.48,0.68,0.94,1.31,1.83,2.54) # spatial frequency
 #' y <- c(141,172,190,187,164,129,90.3,57.1) # averaged contrast sensitivity
 #' sm_AULCSF(x,y) # log10 x and log 10 y are used to calculate AULCSF
-#' sm_AULCSF(x,y) #  linear x and y are used to calculate AULCSF
+#' sm_AULCSF(x,y,logXY=FALSE) #  linear x and y are used to calculate AULCSF
 #'
 #' }
 #'
