@@ -5,6 +5,9 @@
 #' to describe how one has conducted data analysis or just for aesthetic
 #' purposes. This function fills the area of the contrast sensitivity function.
 #'
+#' The function's default converts the x and y coordinates into log scales.
+#' This can be overturned when `logXY = FALSE`.
+#'
 #' @param mapping
 #' This argument is to establish the x and y axes. The columns which represent
 #' x and y should be inside `aes()`.
@@ -39,7 +42,7 @@
 #' Number of predicted data that are generated from the given model.
 #'
 #' @param logXY
-#' When this argument is set to TRUE, the function will convert the x and y values
+#' When this argument is set to TRUE (default), the function will convert the x and y values
 #' into log10 units, and then perform the integration. If it is set to FALSE,
 #' the function will keep the data values as they are.
 #'
@@ -70,6 +73,32 @@
 #'
 #'
 #' @examples
+#' \dontrun{
+#' x <- c(0.6,1,2,4,8,16,24,36) # spatial frequency
+#' y <- c(30, 50, 35, 25, 6, 4, 2, 1) # contrast sensitivity
+#' df <- data.frame(x=x,y=y)
+#'
+#' # linear plot of CSF
+#' ggplot(data=df,aes(x,y)) +
+#' geom_point() +
+#' sm_areaCSF(logXY=F)+
+#' sm_CSF(logXY=F)
+#'
+#' # log plot of CSF
+#' ggplot(data=df,aes(log10(x), log10(y))) +
+#'  geom_point() +
+#'  sm_areaCSF()+
+#'  sm_CSF()
+#'
+#'  # log plot of CSF
+#'  ggplot(data=df,aes(x,y)) +
+#'  geom_point() +
+#'  sm_areaCSF()+
+#'  sm_CSF() +
+#'  scale_x_continuous(trans='log10')+
+#'  scale_y_continuous(trans='log10')
+#'
+#' }
 #'
 sm_areaCSF <- function(mapping = NULL, data = NULL,
                        position = 'identity', na.rm = FALSE,

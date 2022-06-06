@@ -63,9 +63,6 @@ in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 4) truncation value.}
 }
-\value{
-
-}
 \description{
 @description
 }
@@ -75,4 +72,20 @@ that contains the original raw data. One of the two arguments 'groups'
 and 'conditions' must be filled. The function will throw an error
 if both arguments are empty. If 'logXY' is set TRUE, it will convert the
 x and y data into log10 units, and then perform the AULCSF calculation.
+}
+\examples{
+\dontrun{
+
+set.seed(1)
+x <- c(0.25,0.35,0.48,0.68,0.94,1.31,1.83,2.54) # spatial frequency
+y <- c(141,172,190,187,164,129,90.3,57.1) # averaged contrast sensitivity
+se <- c(9.6,11,11.1,9.9,7.9,6.1,4.8,3.8) # standard error
+gr <- c(rep(1,length(x)),rep(2,length(x)))
+subj <- rep(paste0('S',1:2),each=8) # subject number
+df <- data.frame(subj=subj,x=x,y=y, se=se, gr=gr)
+df[1:length(x)+1,-c(1,2,5)] <- df[1:length(x)+1,-c(1,2,5)]+round(rnorm(10),1)
+df$gr <- factor(df$gr)
+sm_AULCSF_list(data=df, subjects = 'subj', groups ='gr',x='x', values='y',logXY=F)
+}
+
 }

@@ -53,6 +53,24 @@
 #' Hou, F., Huang, C. B., Lesmes, L., Feng, L. X., Tao, L., Zhou, Y. F., & Lu, Z. L. (2010). qCSF in clinical application: efficient characterization and classification of contrast sensitivity functions in amblyopia. Investigative ophthalmology & visual science, 51(10), 5365-5377.
 #'
 #' @examples
+#' \dontrun{
+#'
+#' x <- c(0.6,1,2,4,8,16,24,36) # spatial frequency
+#' y <- c(30, 50, 35, 25, 6, 4, 2, 1) # contrast sensitivity
+#' df <- data.frame(x=x,y=y)
+#' param0 = log10(c(100, 1, 2, 0.5))
+#' param_upLimit = log10(c(2000, 20, 9, 2)) # lower limits of the parameters
+#' param_lowLimit= log10(c(2, 0.2, 1, 0.02)) # upper limits of the parameters
+#' params <- sm_params(df$x, df$y, param0, param_upLimit,param_lowLimit)
+#' rng <- range(x, na.rm = TRUE)
+#' grid <- data.frame(x = seq(rng[1], rng[2], length = 500))
+#' grid$y <- 10^sm_findQCSF(log10(grid$x), params[[1]], params[[2]], params[[3]], params[[4]])
+#'
+#' ggplot(data=grid,aes(x,y)) + geom_point() +
+#' scale_x_continuous(trans='log10') +
+#' scale_y_continuous(trans='log10')
+#'  }
+#'
 sm_findQCSF <- function(spatFreq, logGain, logCenter, octaveWidth, logTrunc) {
   linTrunc <- 10^logTrunc; # log10
   tauDecay <- 0.5

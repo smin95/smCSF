@@ -65,6 +65,22 @@
 #' @importFrom stats na.omit
 #'
 #' @examples
+#' \dontrun{
+#'
+#' set.seed(1)
+#' x <- c(0.25,0.35,0.48,0.68,0.94,1.31,1.83,2.54) # spatial frequency
+#' y <- c(141,172,190,187,164,129,90.3,57.1) # averaged contrast sensitivity
+#' se <- c(9.6,11,11.1,9.9,7.9,6.1,4.8,3.8) # standard error
+#' gr <- c(rep(1,length(x)),rep(2,length(x)))
+#' subj <- rep(paste0('S',1:2),each=8) # subject number
+#' df <- data.frame(subj=subj,x=x,y=y, se=se, gr=gr)
+#' df[1:length(x)+1,-c(1,2,5)] <- df[1:length(x)+1,-c(1,2,5)]+round(rnorm(10),1)
+
+#' df$gr <- factor(df$gr)
+#' sm_AULCSF_list(data=df, subjects = 'subj', groups ='gr',x='x', values='y',logXY=F)
+
+#' }
+#'
 sm_AULCSF_list <- function(data, subjects, groups, conditions, x, values, logXY = TRUE,
                            n = 500,
                            param0 = log10(c(100, 1, 2, 0.5)),
@@ -84,7 +100,7 @@ sm_AULCSF_list <- function(data, subjects, groups, conditions, x, values, logXY 
     data[[conditions]] <- as.factor(data[[conditions]])
 
     aulcsf_list <- data.frame(matrix(ncol = 3, nrow = subj_num*cond_num))
-    names(aulcsf_list) <- c(subjects, conditions, paste0('AUC_', values))
+    names(aulcsf_list) <- c(subjects, conditions, 'AULCSF')
 
     for (iCond in seq_along(1:cond_num)) {
       for (iSubj in seq_along(1:subj_num)) {
@@ -110,7 +126,7 @@ sm_AULCSF_list <- function(data, subjects, groups, conditions, x, values, logXY 
 
 
     aulcsf_list <- data.frame(matrix(ncol = 3, nrow = subj_num*group_num))
-    names(aulcsf_list) <- c(subjects, groups, paste0('AUC_', values))
+    names(aulcsf_list) <- c(subjects, groups, 'AULCSF')
 
     for (iGroup in seq_along(1:group_num)) {
       for (iSubj in seq_along(1:subj_num)) {
@@ -141,7 +157,7 @@ sm_AULCSF_list <- function(data, subjects, groups, conditions, x, values, logXY 
 
     aulcsf_list <- data.frame(matrix(ncol = 4, nrow = subj_num*cond_num*group_num))
 
-    names(aulcsf_list) <- c(subjects, conditions, groups, paste0('AUC_', values))
+    names(aulcsf_list) <- c(subjects, conditions, groups, 'AULCSF')
 
     for (iGroup in seq_along(1:group_num)) {
       for (iCond in seq_along(1:cond_num)) {
@@ -171,6 +187,6 @@ sm_AULCSF_list <- function(data, subjects, groups, conditions, x, values, logXY 
 
   }
   aulcsf_list <- stats::na.omit(aulcsf_list)
-  print(paste('AUC =', values, '*', x))
+  print(paste('AULCSF =', values, '*', x))
   return(aulcsf_list)
 }

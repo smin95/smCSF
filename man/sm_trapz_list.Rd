@@ -35,9 +35,6 @@ points from which the AUC can be calculated. It must be strings.}
 into log10 units, and then perform the integration. If it is set to FALSE,
 the function will keep the data values as they are.}
 }
-\value{
-
-}
 \description{
 This function returns a data frame containing AUCs from a data frame
 that contains the original raw data. One of the two arguments 'groups'

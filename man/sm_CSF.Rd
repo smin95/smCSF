@@ -44,7 +44,7 @@ is set to \code{TRUE}.}
 
 \item{n}{Number of predicted data that are generated from the given model.}
 
-\item{logXY}{When this argument is set to TRUE, the function will convert the x and y values
+\item{logXY}{When this argument is set to TRUE (default), the function will convert the x and y values
 into log10 units, and then perform the integration. If it is set to FALSE,
 the function will keep the data values as they are.}
 
@@ -66,13 +66,35 @@ in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 contrast sensitivity function, such as \code{alpha = 0.5} or
 \code{color = sm_color('blue')}.}
 }
-\value{
-
-}
 \description{
 It plots the contrast sensitivity function.
+
+The function's default converts the x and y coordinates into log scales.
 }
 \examples{
+\dontrun{
+x <- c(0.6,1,2,4,8,16,24,36) # spatial frequency
+y <- c(30, 50, 35, 25, 6, 4, 2, 1) # contrast sensitivity
+df <- data.frame(x=x,y=y)
+
+# linear plot of CSF
+ggplot(data=df,aes(x,y)) +
+geom_point() +
+sm_CSF(logXY=FALSE)
+
+# log plot of CSF
+ggplot(data=df,aes(log10(x), log10(y))) +
+ geom_point() +
+ sm_CSF()
+
+ # log plot of CSF
+ ggplot(data=df,aes(x,y)) +
+ geom_point() +
+ sm_CSF() +
+ scale_x_continuous(trans='log10')+
+ scale_y_continuous(trans='log10')
+
+}
 
 }
 \keyword{datasets}

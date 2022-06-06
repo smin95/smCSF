@@ -46,7 +46,30 @@
 #' @importFrom stats na.omit
 #'
 #'
-#' @examples
+#' @example
+#' \dontrun{
+#'
+#' set.seed(1)
+#' x <- c(0.25,0.35,0.48,0.68,0.94,1.31,1.83,2.54) # spatial frequency
+#' y <- c(141,172,190,187,164,129,90.3,57.1) # averaged contrast sensitivity
+#' se <- c(9.6,11,11.1,9.9,7.9,6.1,4.8,3.8) # standard error
+#' gr <- c(rep(1,length(x)),rep(2,length(x))) # subject group
+#' subj <- rep(paste0('S',1:2),each=8) # subject number
+#' df <- data.frame(subj=subj,x=x,y=y, se=se, gr=gr)
+#' df[1:length(x)+1,-c(1,2,5)] <- df[1:length(x)+1,-c(1,2,5)]+round(rnorm(10),1)
+#'
+#' df$gr <- factor(df$gr)
+#'
+#' # trapezoidal area under curve from linear x and y data
+#' sm_trapz_list(data=df, subjects = 'subj',
+#'              groups='gr',x='x', values='y',logXY=F)
+#'
+#' # trapezoidal area under curve from log x and y data
+#' sm_trapz_list(data=df, subjects = 'subj',
+#'              groups='gr',x='x', values='y')
+#' }
+#'
+#'
 sm_trapz_list <- function(data, subjects, groups, conditions, x, values, logXY = TRUE) {
 
   x_val <- unique(data[[x]])

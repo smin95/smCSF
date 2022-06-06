@@ -26,6 +26,21 @@
 #' @importFrom stats optim
 #'
 #' @examples
+#' \dontrun{
+#'
+#' x <- c(0.6,1,2,4,8,16,24,36) # spatial frequency
+#' y <- c(30, 50, 35, 25, 6, 4, 2, 1) # contrast sensitivity
+#' df <- data.frame(x=x,y=y)
+#'
+#' param0 = log10(c(100, 1, 2, 0.5)) # original guessing parameters (peak gain, peak spatial frequency
+#' octave bandwidth, truncation value)
+#' param_upLimit = log10(c(2000, 20, 9, 2)) # lower limits of the parameters
+#' param_lowLimit= log10(c(2, 0.2, 1, 0.02)) # upper limits of the parameters
+#'
+#' sm_params(df$x, df$y, param0, param_upLimit,
+#'  param_lowLimit)
+#' }
+#'
 sm_params <- function(x, y,
                           param0, param_upLimit,
                           param_lowLimit) {

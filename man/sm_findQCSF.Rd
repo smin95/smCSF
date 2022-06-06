@@ -22,9 +22,6 @@ units.}
 
 \item{logTrunc}{This refers to the truncation value. It should be provided in log10 units.}
 }
-\value{
-
-}
 \description{
 This is equation of the contrast sensitivity function with the
 form of the truncated log-parabola (Lesmes et al., 2010; Hou et al., 2010).
@@ -46,6 +43,26 @@ that is half of the peak sensitivity, this is called the bandwidth. The unit of 
 in log2 scale, known as the octave. Lastly, the truncation value creates a plateau at a low spatial
 frequency. This factor often plays a minute role and its absence does not significantly affect the fit. It mainly
 resolves the issue of the contrast sensitivity function's symmetry and asymmetry (Lesmes et al., 2010).
+}
+\examples{
+\dontrun{
+
+x <- c(0.6,1,2,4,8,16,24,36) # spatial frequency
+y <- c(30, 50, 35, 25, 6, 4, 2, 1) # contrast sensitivity
+df <- data.frame(x=x,y=y)
+param0 = log10(c(100, 1, 2, 0.5))
+param_upLimit = log10(c(2000, 20, 9, 2)) # lower limits of the parameters
+param_lowLimit= log10(c(2, 0.2, 1, 0.02)) # upper limits of the parameters
+params <- sm_params(df$x, df$y, param0, param_upLimit,param_lowLimit)
+rng <- range(x, na.rm = TRUE)
+grid <- data.frame(x = seq(rng[1], rng[2], length = 500))
+grid$y <- 10^sm_findQCSF(log10(grid$x), params[[1]], params[[2]], params[[3]], params[[4]])
+
+ggplot(data=grid,aes(x,y)) + geom_point() +
+scale_x_continuous(trans='log10') +
+scale_y_continuous(trans='log10')
+ }
+
 }
 \references{
 Lesmes, L. A., Lu, Z. L., Baek, J., & Albright, T. D. (2010). Bayesian adaptive estimation of the contrast sensitivity function: The quick CSF method. Journal of vision, 10(3), 17-17.

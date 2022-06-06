@@ -39,7 +39,7 @@
 #' Number of predicted data that are generated from the given model.
 #'
 #' @param logXY
-#' When this argument is set to TRUE, the function will convert the x and y values
+#' When this argument is set to TRUE (default), the function will convert the x and y values
 #' into log10 units, and then perform the integration. If it is set to FALSE,
 #' the function will keep the data values as they are.
 #'
@@ -70,6 +70,28 @@
 #' @importFrom stats complete.cases
 #'
 #' @examples
+#' \dontrun{
+#' x <- c(0.25,0.35,0.48,0.68,0.94,1.31,1.83,2.54) # spatial frequency
+#' y <- c(141,172,190,187,164,129,90.3,57.1) # averaged contrast sensitivity of subjects
+#' se <- c(9.6,11,11.1,9.9,7.9,6.1,4.8,3.8) # standard error across subjects
+#' df <- data.frame(x=x,y=y, se=se)
+#'
+#' # linear plot of CSF
+#' ggplot(data=df,aes(x,y)) +
+#' sm_ribbonCSF(aes(ymin = y-se, ymax = y+se), logXY = F) +
+#'  geom_point() +
+#'  sm_CSF(logXY=F)
+#'
+#' # log plot of CSF
+#' ggplot(data=df,aes(x,y)) +
+#' sm_ribbonCSF(aes(ymin = y-se, ymax = y+se)) +
+#'  geom_point() +
+#'  sm_CSF() +
+#'  scale_x_continuous(trans='log10') +
+#'  scale_y_continuous(trans='log10')
+#' }
+#'
+#'
 sm_ribbonCSF <- function(mapping = NULL, data = NULL,
                          position = 'identity', na.rm = FALSE,
                          outline.type = 'upper',

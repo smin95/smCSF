@@ -41,9 +41,17 @@ in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 4) truncation value.}
 }
-\value{
-
-}
 \description{
 Calculation of the Area under a Curve (area under the log CSF, i.e., AULCSF)
+}
+\examples{
+\dontrun{
+
+x <- c(0.25,0.35,0.48,0.68,0.94,1.31,1.83,2.54) # spatial frequency
+y <- c(141,172,190,187,164,129,90.3,57.1) # averaged contrast sensitivity
+sm_AULCSF(x,y) # log10 x and log 10 y are used to calculate AULCSF
+sm_AULCSF(x,y) #  linear x and y are used to calculate AULCSF
+
+}
+
 }

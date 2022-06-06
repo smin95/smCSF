@@ -49,7 +49,7 @@ is set to \code{TRUE}.}
 
 \item{n}{Number of predicted data that are generated from the given model.}
 
-\item{logXY}{When this argument is set to TRUE, the function will convert the x and y values
+\item{logXY}{When this argument is set to TRUE (default), the function will convert the x and y values
 into log10 units, and then perform the integration. If it is set to FALSE,
 the function will keep the data values as they are.}
 
@@ -67,14 +67,37 @@ in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 4) truncation value.}
 
-\item{...}{}
-}
-\value{
-
+\item{...}{Other arguments that are passed to control for the appearance of the
+contrast sensitivity function, such as \code{alpha = 0.5} or
+\code{color = sm_color('blue')}.}
 }
 \description{
 Usually, the standard error/deviation of the fitted contrast sensitivity function
 is shown as a ribbon rather than error bars. This function helps the user
 to follow the convention.
+}
+\examples{
+\dontrun{
+x <- c(0.25,0.35,0.48,0.68,0.94,1.31,1.83,2.54) # spatial frequency
+y <- c(141,172,190,187,164,129,90.3,57.1) # averaged contrast sensitivity of subjects
+se <- c(9.6,11,11.1,9.9,7.9,6.1,4.8,3.8) # standard error across subjects
+df <- data.frame(x=x,y=y, se=se)
+
+# linear plot of CSF
+ggplot(data=df,aes(x,y)) +
+sm_ribbonCSF(aes(ymin = y-se, ymax = y+se), logXY = F) +
+ geom_point() +
+ sm_CSF(logXY=F)
+
+# log plot of CSF
+ggplot(data=df,aes(x,y)) +
+sm_ribbonCSF(aes(ymin = y-se, ymax = y+se)) +
+ geom_point() +
+ sm_CSF() +
+ scale_x_continuous(trans='log10') +
+ scale_y_continuous(trans='log10')
+}
+
+
 }
 \keyword{datasets}
