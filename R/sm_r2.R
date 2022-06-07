@@ -58,7 +58,7 @@ sm_r2 <- function(x,y,
     ssr <- sum((y1- mean(log10(y)))^2)
     sst <- ssr+sse
     r2 <- ssr/sst
-    return(round(r2),4)
+    return(round(r2,4))
   }
 
 }
