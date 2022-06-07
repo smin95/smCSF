@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/smin95/smCSF/blob/master/LICENSE)
 
-# smCSF
+# smCSF 
 
 Author: Seung Hyun Min
 
