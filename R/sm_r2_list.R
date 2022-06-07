@@ -1,4 +1,4 @@
-#' Calculating r-squared of the contrast sensitivity function fit
+#' Calculating R-squared of the contrast sensitivity function fit
 #' across multiple conditions, groups and subjects
 #'
 #' @description
@@ -53,7 +53,7 @@
 #' sm_r2_list(data=df, subjects = 'subj', groups ='gr',x='x', values='y')
 
 #' }
-sm_r2_list <- function(data, subjects, groups, conditions, x, values) {
+sm_R2_list <- function(data, subjects, groups, conditions, x, values) {
 
   x_val <- unique(data[[x]])
   subjects_list <- unique(base::as.character(data[[subjects]]))
@@ -68,7 +68,7 @@ sm_r2_list <- function(data, subjects, groups, conditions, x, values) {
     data[[conditions]] <- as.factor(data[[conditions]])
 
     r2_list <- data.frame(matrix(ncol = 3, nrow = subj_num*cond_num))
-    names(r2_list) <- c(subjects, conditions, paste0('r2'))
+    names(r2_list) <- c(subjects, conditions, paste0('R2'))
 
     for (iCond in seq_along(1:cond_num)) {
       for (iSubj in seq_along(1:subj_num)) {
@@ -90,7 +90,7 @@ sm_r2_list <- function(data, subjects, groups, conditions, x, values) {
 
 
     r2_list <- data.frame(matrix(ncol = 3, nrow = subj_num*group_num))
-    names(r2_list) <- c(subjects, groups, paste0('r2'))
+    names(r2_list) <- c(subjects, groups, paste0('R2'))
 
     for (iGroup in seq_along(1:group_num)) {
       for (iSubj in seq_along(1:subj_num)) {
@@ -117,7 +117,7 @@ sm_r2_list <- function(data, subjects, groups, conditions, x, values) {
 
     r2_list <- data.frame(matrix(ncol = 4, nrow = subj_num*cond_num*group_num))
 
-    names(r2_list) <- c(subjects, conditions, groups, paste0('r2'))
+    names(r2_list) <- c(subjects, conditions, groups, paste0('R2'))
 
     for (iGroup in seq_along(1:group_num)) {
       for (iCond in seq_along(1:cond_num)) {
@@ -143,6 +143,6 @@ sm_r2_list <- function(data, subjects, groups, conditions, x, values) {
 
   }
   r2_list <- stats::na.omit(r2_list)
-  print(paste('r2'))
+  print(paste('R2 (0-worst, 1-best) for each subject'))
   return(r2_list)
 }
