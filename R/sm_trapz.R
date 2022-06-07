@@ -18,7 +18,7 @@
 #' the fuction will keep the data values as they are.
 #'
 #' @importFrom zoo rollmean
-#'
+#' @export
 #' @examples
 #' \dontrun{
 #'

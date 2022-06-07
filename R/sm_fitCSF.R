@@ -22,6 +22,9 @@
 #' @param y
 #'
 #' Linear units of contrast sensitivity data, not log.
+#'
+#' @export
+#'
 #' @examples
 #' \dontrun{
 #' x <- c(0.25,0.35,0.48,0.68,0.94,1.31,1.83,2.54) # spatial frequency

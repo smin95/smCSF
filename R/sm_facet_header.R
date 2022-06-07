@@ -14,7 +14,7 @@
 #'
 
 #' @importFrom ggplot2 theme
-#'
+#' @export
 #' @examples
 #' \dontrun{
 #' set.seed(1)

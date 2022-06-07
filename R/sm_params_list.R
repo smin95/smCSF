@@ -55,6 +55,7 @@
 #'
 #'
 #' @importFrom stats na.omit
+#' @export
 #'
 #' @examples
 #' \dontrun{

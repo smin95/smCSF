@@ -51,7 +51,7 @@
 #' Lesmes, L. A., Lu, Z. L., Baek, J., & Albright, T. D. (2010). Bayesian adaptive estimation of the contrast sensitivity function: The quick CSF method. Journal of vision, 10(3), 17-17.
 #'
 #' Hou, F., Huang, C. B., Lesmes, L., Feng, L. X., Tao, L., Zhou, Y. F., & Lu, Z. L. (2010). qCSF in clinical application: efficient characterization and classification of contrast sensitivity functions in amblyopia. Investigative ophthalmology & visual science, 51(10), 5365-5377.
-#'
+#' @export
 #' @examples
 #' \dontrun{
 #'

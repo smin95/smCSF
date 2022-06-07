@@ -45,7 +45,7 @@
 #' the function will keep the data values as they are.
 #' @importFrom stats na.omit
 #'
-#'
+#' @export
 #' @example
 #' \dontrun{
 #'

@@ -63,6 +63,7 @@
 #' 4) truncation value.
 #'
 #' @importFrom stats na.omit
+#' @export
 #'
 #' @examples
 #' \dontrun{

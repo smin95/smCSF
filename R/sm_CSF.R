@@ -62,6 +62,7 @@
 #' @importFrom grid polygonGrob gList
 #' @importFrom stats complete.cases
 #'
+#' @export
 #' @examples
 #' \dontrun{
 #' x <- c(0.6,1,2,4,8,16,24,36) # spatial frequency

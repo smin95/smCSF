@@ -24,6 +24,7 @@
 #' 4) truncation value.
 #'
 #' @importFrom stats optim
+#' @export
 #'
 #' @examples
 #' \dontrun{

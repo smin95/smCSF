@@ -14,7 +14,7 @@
 #' @param str2
 #' Character string that comes after the factor level as specified by the
 #' column of the data frame `df_column`.
-#'
+#' @export
 #'
 #' @examples
 #' \dontrun{
