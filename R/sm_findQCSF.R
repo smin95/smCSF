@@ -77,7 +77,7 @@ sm_findQCSF <- function(spatFreq, logGain, logCenter, octaveWidth, logTrunc) {
   K <- log10(tauDecay)
   logWidth <- (10^octaveWidth*log10(2))/2
   logP <- logGain + K * ((1/logWidth) * (spatFreq - logCenter))^2 # log Parabola
-  truncHalf <- logGain - linTrunc
+  truncHalf <- log10(logGain) - linTrunc # Kim et al 2017 IOVS
 
   leftCSF <- ((logP < truncHalf) & (spatFreq < logCenter)) * truncHalf
   rightCSF <- ((logP >= truncHalf) | (spatFreq > logCenter)) * logP
