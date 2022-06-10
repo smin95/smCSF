@@ -53,7 +53,7 @@
 #' sm_r2_list(data=df, subjects = 'subj', groups ='gr',x='x', values='y')
 
 #' }
-sm_R2_list <- function(data, subjects, groups, conditions, x, values) {
+sm_r2_list <- function(data, subjects, groups, conditions, x, values) {
 
   x_val <- unique(data[[x]])
   subjects_list <- unique(base::as.character(data[[subjects]]))
