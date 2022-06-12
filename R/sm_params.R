@@ -53,12 +53,14 @@ sm_params <- function(x, y,
   output <- vector('double', length(param0))
 
   output[[1]] <- res$par[[1]] # logGain
-  output[[2]] <- res$par[[2]] # logCenter
-  output[[3]] <- res$par[[3]] # octaveWidth
+  output[[2]] <- res$par[[2]] # log peak SF
+  output[[3]] <- res$par[[3]] # log octaveWidth
   output[[4]] <- res$par[[4]] # logTrunc
 
-  names(output) <- c('logGain', 'logCenter', 'logOctaveWidth',
-                     'logTrunc')
+  output[[5]] <- sm_cutOff(output[[1]], output[[2]], output[[3]]) # cutoff SF
+
+  names(output) <- c('logGain', 'logPeakSF', 'logOctaveWidth',
+                     'logTrunc', 'logCutOffSF')
   return(output)
 
 }

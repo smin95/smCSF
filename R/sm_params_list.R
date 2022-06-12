@@ -89,9 +89,9 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
     cond_num <- length(cond_list)
     data[[conditions]] <- as.factor(data[[conditions]])
 
-    params_list <- data.frame(matrix(ncol = 6, nrow = subj_num*cond_num))
-    names(params_list) <- c(subjects, conditions, 'logGain', 'logCenter',
-                            'logOctaveWidth', 'logTrunc')
+    params_list <- data.frame(matrix(ncol = 7, nrow = subj_num*cond_num))
+    names(params_list) <- c(subjects, conditions, 'logGain', 'logPeakSF',
+                            'logOctaveWidth', 'logTrunc', 'logCutOffSF')
 
     for (iCond in seq_along(1:cond_num)) {
       for (iSubj in seq_along(1:subj_num)) {
@@ -122,6 +122,10 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
                                                                      param0=param0,
                                                                      param_upLimit=param_upLimit,
                                                                      param_lowLimit=param_lowLimit)[[4]]
+          params_list[,7][(cond_num*(iSubj-1))+(iCond)] <- sm_params(x_val,data[[values]][ind],
+                                                                     param0=param0,
+                                                                     param_upLimit=param_upLimit,
+                                                                     param_lowLimit=param_lowLimit)[[5]]
           #return(params_list)
         }
       }
@@ -135,9 +139,9 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
     data[[groups]] <- as.factor(data[[groups]])
 
 
-    params_list <- data.frame(matrix(ncol = 6, nrow = subj_num*group_num))
-    names(params_list) <- c(subjects, groups,  'logGain', 'logCenter',
-                            'logOctaveWidth', 'logTrunc')
+    params_list <- data.frame(matrix(ncol = 7, nrow = subj_num*group_num))
+    names(params_list) <- c(subjects, groups,  'logGain', 'logPeakSF',
+                            'logOctaveWidth', 'logTrunc', 'logCutOffSF')
 
     for (iGroup in seq_along(1:group_num)) {
       for (iSubj in seq_along(1:subj_num)) {
@@ -149,21 +153,25 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
           params_list[,1][(group_num*(iSubj-1))+(iGroup)] <- subjects_list[iSubj]
           params_list[,2][(group_num*(iSubj-1))+(iGroup)] <- group_list[iGroup]
           params_list[,3][(group_num*(iSubj-1))+(iGroup)] <- sm_params(x_val,data[[values]][ind],
-                                                                     param0=param0,
-                                                                     param_upLimit=param_upLimit,
-                                                                     param_lowLimit=param_lowLimit)[[1]]
+                                                                       param0=param0,
+                                                                       param_upLimit=param_upLimit,
+                                                                       param_lowLimit=param_lowLimit)[[1]]
           params_list[,4][(group_num*(iSubj-1))+(iGroup)] <- sm_params(x_val,data[[values]][ind],
-                                                                     param0=param0,
-                                                                     param_upLimit=param_upLimit,
-                                                                     param_lowLimit=param_lowLimit)[[2]]
+                                                                       param0=param0,
+                                                                       param_upLimit=param_upLimit,
+                                                                       param_lowLimit=param_lowLimit)[[2]]
           params_list[,5][(group_num*(iSubj-1))+(iGroup)] <- sm_params(x_val,data[[values]][ind],
-                                                                     param0=param0,
-                                                                     param_upLimit=param_upLimit,
-                                                                     param_lowLimit=param_lowLimit)[[3]]
+                                                                       param0=param0,
+                                                                       param_upLimit=param_upLimit,
+                                                                       param_lowLimit=param_lowLimit)[[3]]
           params_list[,6][(group_num*(iSubj-1))+(iGroup)] <- sm_params(x_val,data[[values]][ind],
-                                                                     param0=param0,
-                                                                     param_upLimit=param_upLimit,
-                                                                     param_lowLimit=param_lowLimit)[[4]]
+                                                                       param0=param0,
+                                                                       param_upLimit=param_upLimit,
+                                                                       param_lowLimit=param_lowLimit)[[4]]
+          params_list[,7][(group_num*(iSubj-1))+(iGroup)] <- sm_params(x_val,data[[values]][ind],
+                                                                       param0=param0,
+                                                                       param_upLimit=param_upLimit,
+                                                                       param_lowLimit=param_lowLimit)[[5]]
         }
       }
     }
@@ -180,10 +188,10 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
     group_num <- length(group_list)
     data[[groups]] <- as.factor(data[[groups]])
 
-    params_list <- data.frame(matrix(ncol = 7, nrow = subj_num*cond_num*group_num))
+    params_list <- data.frame(matrix(ncol = 8, nrow = subj_num*cond_num*group_num))
 
-    names(params_list) <- c(subjects, conditions, groups, 'logGain', 'logCenter',
-                            'logOctaveWidth', 'logTrunc')
+    names(params_list) <- c(subjects, conditions, groups, 'logGain', 'logPeakSF',
+                            'logOctaveWidth', 'logTrunc', 'logCutOffSF')
 
     for (iGroup in seq_along(1:group_num)) {
       for (iCond in seq_along(1:cond_num)) {
@@ -199,21 +207,25 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
 
 
             params_list[,4][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                       param0=param0,
-                                                                       param_upLimit=param_upLimit,
-                                                                       param_lowLimit=param_lowLimit)[[1]]
+                                                                                        param0=param0,
+                                                                                        param_upLimit=param_upLimit,
+                                                                                        param_lowLimit=param_lowLimit)[[1]]
             params_list[,5][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                       param0=param0,
-                                                                       param_upLimit=param_upLimit,
-                                                                       param_lowLimit=param_lowLimit)[[2]]
+                                                                                        param0=param0,
+                                                                                        param_upLimit=param_upLimit,
+                                                                                        param_lowLimit=param_lowLimit)[[2]]
             params_list[,6][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                       param0=param0,
-                                                                       param_upLimit=param_upLimit,
-                                                                       param_lowLimit=param_lowLimit)[[3]]
+                                                                                        param0=param0,
+                                                                                        param_upLimit=param_upLimit,
+                                                                                        param_lowLimit=param_lowLimit)[[3]]
             params_list[,7][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                       param0=param0,
-                                                                       param_upLimit=param_upLimit,
-                                                                       param_lowLimit=param_lowLimit)[[4]]
+                                                                                        param0=param0,
+                                                                                        param_upLimit=param_upLimit,
+                                                                                        param_lowLimit=param_lowLimit)[[4]]
+            params_list[,8][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- sm_params(x_val,data[[values]][ind],
+                                                                                        param0=param0,
+                                                                                        param_upLimit=param_upLimit,
+                                                                                        param_lowLimit=param_lowLimit)[[5]]
           }
 
         }
