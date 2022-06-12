@@ -15,8 +15,7 @@
 #'
 #' @param param0
 #' A vector that contains initial four parameters in log10 units in this order:
-#' 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
-#' 4) truncation value.
+#' 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and 4) truncation value.
 #'
 #' @param param_upLimit
 #' A vector that contains the upper limit of the four parameters (in log10 units)

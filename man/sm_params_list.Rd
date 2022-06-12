@@ -2,7 +2,7 @@
 % Please edit documentation in R/sm_params_list.R
 \name{sm_params_list}
 \alias{sm_params_list}
-\title{Calculation the four parameters of the contrast sensitivity function
+\title{Calculation the four + one parameters of the contrast sensitivity function
 across multiple groups, conditions and subjects.}
 \usage{
 sm_params_list(
@@ -44,8 +44,7 @@ It must be strings.}
 
 \item{param0}{A vector that contains initial four parameters in log10 units in this order:
 \enumerate{
-\item peak gain, 2) peak spatial frequency, 3) bandwidth, and
-\item truncation value.
+\item peak gain, 2) peak spatial frequency, 3) bandwidth, and 4) truncation value.
 }}
 
 \item{param_upLimit}{A vector that contains the upper limit of the four parameters (in log10 units)
@@ -57,7 +56,7 @@ in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 4) truncation value.}
 }
 \description{
-This function returns a data frame containing the four parameters of the
+This function returns a data frame containing the four + one parameters of the
 contrast sensitivity function based on the raw data in the given data frame.
 One of the two arguments 'groups' and 'conditions' must be filled. The function will throw an error
 if both arguments are empty.

@@ -15,8 +15,7 @@ It is recommended that contrast sensitivity in linear units is provided.}
 
 \item{param0}{A vector that contains initial four parameters in log10 units in this order:
 \enumerate{
-\item peak gain, 2) peak spatial frequency, 3) bandwidth, and
-\item truncation value.
+\item peak gain, 2) peak spatial frequency, 3) bandwidth, and 4) truncation value.
 }}
 
 \item{param_upLimit}{A vector that contains the upper limit of the four parameters (in log10 units)
