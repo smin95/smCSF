@@ -1,4 +1,9 @@
-#' Calculating the four parameters of the contrast sensitivity function
+#' Calculating the four + one parameters of the contrast sensitivity function
+#'
+#' @description
+#'
+#' This function calculates the logGain, logPeakSF, log octaveWidth,
+#' log Truncation factor and the cut-off spatial frequency.
 #'
 #' @param x
 #' A vector that contains spatial frequency.

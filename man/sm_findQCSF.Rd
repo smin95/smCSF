@@ -14,7 +14,7 @@ have been collected. This should be the linear values of the tested spatial freq
 \item{logGain}{This refers to peak gain (i.e., peak sensitivity) of the contrast sensitivity function.
 It should be provided in log10 units.}
 
-\item{logCenter}{This refers to peak spatial frequency (i.e., center of the contrast sensitivity function).
+\item{logCenter}{This refers to peak spatial frequency (i.e., center of the log contrast sensitivity function).
 It should be provided in log10 units.}
 
 \item{octaveWidth}{This refers to the bandwidth of the contrast sensitivity function. It should be provided in log10

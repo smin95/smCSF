@@ -35,7 +35,7 @@
 #' This refers to peak gain (i.e., peak sensitivity) of the contrast sensitivity function.
 #' It should be provided in log10 units.
 #' @param logCenter
-#' This refers to peak spatial frequency (i.e., center of the contrast sensitivity function).
+#' This refers to peak spatial frequency (i.e., center of the log contrast sensitivity function).
 #' It should be provided in log10 units.
 #'
 #' @param octaveWidth

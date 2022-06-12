@@ -2,7 +2,7 @@
 % Please edit documentation in R/sm_params.R
 \name{sm_params}
 \alias{sm_params}
-\title{Calculating the four parameters of the contrast sensitivity function}
+\title{Calculating the four + one parameters of the contrast sensitivity function}
 \usage{
 sm_params(x, y, param0, param_upLimit, param_lowLimit)
 }
@@ -28,7 +28,8 @@ in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 4) truncation value.}
 }
 \description{
-Calculating the four parameters of the contrast sensitivity function
+This function calculates the logGain, logPeakSF, log octaveWidth,
+log Truncation factor and the cut-off spatial frequency.
 }
 \examples{
 \dontrun{
