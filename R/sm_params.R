@@ -40,8 +40,8 @@
 #'
 #' param0 = log10(c(100, 1, 2, 0.5)) # original guessing parameters (peak gain, peak spatial frequency
 #' octave bandwidth, truncation value)
-#' param_upLimit = log10(c(2000, 20, 9, 2)) # lower limits of the parameters
-#' param_lowLimit= log10(c(2, 0.2, 1, 0.02)) # upper limits of the parameters
+#' param_upLimit = log10(c(2000, 20, 9, 2)) # upper limits of the parameters
+#' param_lowLimit= log10(c(2, 0.2, 1, 0.02)) # lower limits of the parameters
 #'
 #' sm_params(df$x, df$y, param0, param_upLimit,
 #'  param_lowLimit)
