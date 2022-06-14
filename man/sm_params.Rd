@@ -4,7 +4,14 @@
 \alias{sm_params}
 \title{Calculating the four + one parameters of the contrast sensitivity function}
 \usage{
-sm_params(x, y, param0, param_upLimit, param_lowLimit, setLinSF = 1)
+sm_params(
+  x,
+  y,
+  param0 = log10(c(100, 1, 2, 0.5)),
+  param_upLimit = log10(c(2000, 20, 9, 2)),
+  param_lowLimit = log10(c(2, 0.2, 1, 0.02)),
+  setLinSF = 1
+)
 }
 \arguments{
 \item{x}{A vector that contains spatial frequency.
@@ -15,16 +22,17 @@ It is recommended that contrast sensitivity in linear units is provided.}
 
 \item{param0}{A vector that contains initial four parameters in log10 units in this order:
 \enumerate{
-\item peak gain, 2) peak spatial frequency, 3) bandwidth, and 4) truncation value.
+\item peak gain, 2) peak spatial frequency, 3) bandwidth, and 4) truncation value. The
+defaults are set to log10(c(100, 1, 2, 0.5)).
 }}
 
 \item{param_upLimit}{A vector that contains the upper limit of the four parameters (in log10 units)
 in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
-4) truncation value.}
+4) truncation value. The defaults are set to log10(c(2000, 20, 9, 2)).}
 
 \item{param_lowLimit}{A vector that contains the lower limit of the four parameters (in log10 units)
 in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
-4) truncation value.}
+4) truncation value. The defaults are set to log10(c(2, 0.2, 1, 0.02)).}
 
 \item{setLinSF}{This refers to the sensitivity level that the user wishes to measure the cut-off spatial frequency.
 The default is set to 1. This means that the cut-off SF is measured when the linear
@@ -41,13 +49,7 @@ x <- c(0.6,1,2,4,8,16,24,36) # spatial frequency
 y <- c(30, 50, 35, 25, 6, 4, 2, 1) # contrast sensitivity
 df <- data.frame(x=x,y=y)
 
-param0 = log10(c(100, 1, 2, 0.5)) # original guessing parameters (peak gain, peak spatial frequency
-octave bandwidth, truncation value)
-param_upLimit = log10(c(2000, 20, 9, 2)) # upper limits of the parameters
-param_lowLimit= log10(c(2, 0.2, 1, 0.02)) # lower limits of the parameters
-
-sm_params(df$x, df$y, param0, param_upLimit,
- param_lowLimit)
+sm_params(df$x, df$y)
 }
 
 }

@@ -1,12 +1,12 @@
-#' Calculating the sum of squares with predicted values and the raw data of contrast
+#' Calculating the residual sum of squares with predicted values and the raw data of contrast
 #' sensitivity
 #'
 #' @description
 #' Using the four parameters from the Quick-CSF method, this function
 #' compares the differences between the raw data (y) and the predicted data. The
 #' predicted data are calculated from the four parameters at the given
-#' spatial frequencies (x). This difference is computed as the sum of squares.
-#' If the sum of squares is low, then the predicted values from the given model
+#' spatial frequencies (x). This difference is computed as the residual sum of squares (RSS).
+#' If the RSS is low, then the predicted values from the given model
 #' are highly representative of the actual raw data.
 #'
 #' @param param
@@ -29,10 +29,7 @@
 #' \dontrun{
 #' x <- c(0.25,0.35,0.48,0.68,0.94,1.31,1.83,2.54) # spatial frequency
 #' y <- c(141,172,190,187,164,129,90.3,57.1) # averaged contrast sensitivity
-#' param0 = log10(c(100, 1, 2, 0.5))
-#' param_upLimit = log10(c(2000, 20, 9, 2)) # upper limits of the parameters
-#' param_lowLimit= log10(c(2, 0.2, 1, 0.02)) # lower limits of the parameters
-#' params <- sm_params(x,y, param0, param_upLimit, param_lowLimit)
+#' params <- sm_params(x,y)
 #' sm_fitCSF(params,x,y) # sum of squares between y and the predicted y
 #' from the CSF model
 #;
