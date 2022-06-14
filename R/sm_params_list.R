@@ -52,7 +52,7 @@
 #' in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 #' 4) truncation value.
 #'
-#' @param setLinSF
+#' @param sensCutOff
 #' This refers to the sensitivity level that the user wishes to measure the cut-off spatial frequency.
 #' The default is set to 1. This means that the cut-off SF is measured when the linear
 #' sensitivity equals to 1.
@@ -80,7 +80,7 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
                            param0 = log10(c(100, 1, 2, 0.5)),
                            param_upLimit = log10(c(2000, 20, 9, 2)),
                            param_lowLimit= log10(c(2, 0.2, 1, 0.02)),
-                           setLinSF = 1) {
+                           sensCutOff = 1) {
 
   x_val <- unique(data[[x]])
   subjects_list <- unique(base::as.character(data[[subjects]]))
@@ -107,7 +107,7 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
                                 param0=param0,
                                 param_upLimit=param_upLimit,
                                 param_lowLimit=param_lowLimit,
-                                setLinSF = setLinSF)
+                                sensCutOff= sensCutOff)
         if (length(ind)!=0) {
 
           params_list[,1][(cond_num*(iSubj-1))+(iCond)] <- subjects_list[iSubj]
@@ -143,7 +143,7 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
                                 param0=param0,
                                 param_upLimit=param_upLimit,
                                 param_lowLimit=param_lowLimit,
-                                setLinSF = setLinSF)
+                                sensCutOff= sensCutOff)
 
         if (length(ind)!=0) {
 
@@ -186,7 +186,7 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
                                   param0=param0,
                                   param_upLimit=param_upLimit,
                                   param_lowLimit=param_lowLimit,
-                                  setLinSF = setLinSF)
+                                  sensCutOff= sensCutOff)
 
           if (length(ind)!=0) {
             params_list[,1][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- subjects_list[iSubj]

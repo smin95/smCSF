@@ -15,7 +15,7 @@
 #' @param octaveWidth
 #' This refers to the bandwidth of the contrast sensitivity function. It should be provided in log10
 #' units.
-#' @param setLinSF
+#' @param sensCutOff
 #' This refers to the sensitivity level that the user wishes to measure the cut-off spatial frequency.
 #' The default is set to 1. This means that the cut-off SF is measured when the linear
 #' sensitivity equals to 1.
@@ -35,9 +35,9 @@
 #'
 #' @export
 #'
-sm_cutOff <- function(logGain, logCenter, octaveWidth, setLinSF = 1) {
+sm_cutOff <- function(logGain, logCenter, octaveWidth, sensCutOff = 1) {
 
-  logCutOffSF <- logCenter + octaveWidth * ((log10(setLinSF) - logGain) / log10(0.5))^0.5
+  logCutOffSF <- logCenter + octaveWidth * ((log10(sensCutOff) - logGain) / log10(0.5))^0.5
 
   return(logCutOffSF)
 }

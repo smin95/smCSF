@@ -28,7 +28,7 @@
 #' in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 #' 4) truncation value. The defaults are set to log10(c(2, 0.2, 1, 0.02)).
 #'
-#' @param setLinSF
+#' @param sensCutOff
 #' This refers to the sensitivity level that the user wishes to measure the cut-off spatial frequency.
 #' The default is set to 1. This means that the cut-off SF is measured when the linear
 #' sensitivity equals to 1.
@@ -50,7 +50,7 @@ sm_params <- function(x, y,
                       param0 = log10(c(100, 1, 2, 0.5)),
                       param_upLimit = log10(c(2000, 20, 9, 2)),
                       param_lowLimit = log10(c(2, 0.2, 1, 0.02)),
-                      setLinSF = 1) {
+                      sensCutOff = 1) {
 
   res <- stats::optim(par = param0, sm_fitCSF, x = x, y = y,
                lower = param_lowLimit, upper = param_upLimit,
@@ -64,7 +64,7 @@ sm_params <- function(x, y,
   output[[4]] <- res$par[[4]] # logTrunc
 
   output[[5]] <- sm_cutOff(output[[1]], output[[2]], output[[3]],
-                           setLinSF = setLinSF) # cutoff SF
+                           sensCutOff = sensCutOff) # cutoff SF
 
   names(output) <- c('logGain', 'logPeakSF', 'logOctaveWidth',
                      'logTrunc', 'logCutOffSF')

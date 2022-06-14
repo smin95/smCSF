@@ -4,7 +4,7 @@
 \alias{sm_cutOff}
 \title{Calculating log cutoff spatial frequency}
 \usage{
-sm_cutOff(logGain, logCenter, octaveWidth, setLinSF = 1)
+sm_cutOff(logGain, logCenter, octaveWidth, sensCutOff = 1)
 }
 \arguments{
 \item{logGain}{This refers to peak gain (i.e., peak sensitivity) of the contrast sensitivity function.
@@ -16,7 +16,7 @@ It should be provided in log10 units.}
 \item{octaveWidth}{This refers to the bandwidth of the contrast sensitivity function. It should be provided in log10
 units.}
 
-\item{setLinSF}{This refers to the sensitivity level that the user wishes to measure the cut-off spatial frequency.
+\item{sensCutOff}{This refers to the sensitivity level that the user wishes to measure the cut-off spatial frequency.
 The default is set to 1. This means that the cut-off SF is measured when the linear
 sensitivity equals to 1.}
 }
