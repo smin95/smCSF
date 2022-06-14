@@ -4,7 +4,7 @@
 \alias{sm_params}
 \title{Calculating the four + one parameters of the contrast sensitivity function}
 \usage{
-sm_params(x, y, param0, param_upLimit, param_lowLimit)
+sm_params(x, y, param0, param_upLimit, param_lowLimit, setLinSF = 1)
 }
 \arguments{
 \item{x}{A vector that contains spatial frequency.
@@ -25,6 +25,10 @@ in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 \item{param_lowLimit}{A vector that contains the lower limit of the four parameters (in log10 units)
 in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 4) truncation value.}
+
+\item{setLinSF}{This refers to the sensitivity level that the user wishes to measure the cut-off spatial frequency.
+The default is set to 1. This means that the cut-off SF is measured when the linear
+sensitivity equals to 1.}
 }
 \description{
 This function calculates the logGain, logPeakSF, log octaveWidth,

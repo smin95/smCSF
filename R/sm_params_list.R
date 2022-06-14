@@ -52,6 +52,11 @@
 #' in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 #' 4) truncation value.
 #'
+#' @param setLinSF
+#' This refers to the sensitivity level that the user wishes to measure the cut-off spatial frequency.
+#' The default is set to 1. This means that the cut-off SF is measured when the linear
+#' sensitivity equals to 1.
+#'
 #'
 #' @importFrom stats na.omit
 #' @export
@@ -74,7 +79,8 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
                            values,
                            param0 = log10(c(100, 1, 2, 0.5)),
                            param_upLimit = log10(c(2000, 20, 9, 2)),
-                           param_lowLimit= log10(c(2, 0.2, 1, 0.02))) {
+                           param_lowLimit= log10(c(2, 0.2, 1, 0.02)),
+                           setLinSF = 1) {
 
   x_val <- unique(data[[x]])
   subjects_list <- unique(base::as.character(data[[subjects]]))
@@ -97,35 +103,21 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
         ind <- which(data[[conditions]] == unique(cond_list)[iCond] &
                        data[[subjects]] == unique(subjects_list)[iSubj])
 
+        params_all <- sm_params(x_val,data[[values]][ind],
+                                param0=param0,
+                                param_upLimit=param_upLimit,
+                                param_lowLimit=param_lowLimit,
+                                setLinSF = setLinSF)
         if (length(ind)!=0) {
 
           params_list[,1][(cond_num*(iSubj-1))+(iCond)] <- subjects_list[iSubj]
           params_list[,2][(cond_num*(iSubj-1))+(iCond)] <- cond_list[iCond]
-          params_list[,3][(cond_num*(iSubj-1))+(iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                     param0=param0,
-                                                                     param_upLimit=param_upLimit,
-                                                                     param_lowLimit=param_lowLimit)[[1]]
-          #return(sm_params(x_val,data[[values]][ind],
-          #                     param0, param_upLimit,
-          #                     param_lowLimit)[['logGain']])
-          #return(x_val)
-          params_list[,4][(cond_num*(iSubj-1))+(iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                     param0=param0,
-                                                                     param_upLimit=param_upLimit,
-                                                                     param_lowLimit=param_lowLimit)[[2]]
-          params_list[,5][(cond_num*(iSubj-1))+(iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                     param0=param0,
-                                                                     param_upLimit=param_upLimit,
-                                                                     param_lowLimit=param_lowLimit)[[3]]
-          params_list[,6][(cond_num*(iSubj-1))+(iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                     param0=param0,
-                                                                     param_upLimit=param_upLimit,
-                                                                     param_lowLimit=param_lowLimit)[[4]]
-          params_list[,7][(cond_num*(iSubj-1))+(iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                     param0=param0,
-                                                                     param_upLimit=param_upLimit,
-                                                                     param_lowLimit=param_lowLimit)[[5]]
-          #return(params_list)
+          params_list[,3][(cond_num*(iSubj-1))+(iCond)] <- params_all[[1]]
+
+          params_list[,4][(cond_num*(iSubj-1))+(iCond)] <- params_all[[2]]
+          params_list[,5][(cond_num*(iSubj-1))+(iCond)] <- params_all[[3]]
+          params_list[,6][(cond_num*(iSubj-1))+(iCond)] <- params_all[[4]]
+          params_list[,7][(cond_num*(iSubj-1))+(iCond)] <- params_all[[5]]
         }
       }
     }
@@ -147,30 +139,21 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
         ind <- which(data[[groups]] == unique(group_list)[iGroup] &
                        data[[subjects]] == unique(subjects_list)[iSubj])
 
+        params_all <- sm_params(x_val,data[[values]][ind],
+                                param0=param0,
+                                param_upLimit=param_upLimit,
+                                param_lowLimit=param_lowLimit,
+                                setLinSF = setLinSF)
+
         if (length(ind)!=0) {
 
           params_list[,1][(group_num*(iSubj-1))+(iGroup)] <- subjects_list[iSubj]
           params_list[,2][(group_num*(iSubj-1))+(iGroup)] <- group_list[iGroup]
-          params_list[,3][(group_num*(iSubj-1))+(iGroup)] <- sm_params(x_val,data[[values]][ind],
-                                                                       param0=param0,
-                                                                       param_upLimit=param_upLimit,
-                                                                       param_lowLimit=param_lowLimit)[[1]]
-          params_list[,4][(group_num*(iSubj-1))+(iGroup)] <- sm_params(x_val,data[[values]][ind],
-                                                                       param0=param0,
-                                                                       param_upLimit=param_upLimit,
-                                                                       param_lowLimit=param_lowLimit)[[2]]
-          params_list[,5][(group_num*(iSubj-1))+(iGroup)] <- sm_params(x_val,data[[values]][ind],
-                                                                       param0=param0,
-                                                                       param_upLimit=param_upLimit,
-                                                                       param_lowLimit=param_lowLimit)[[3]]
-          params_list[,6][(group_num*(iSubj-1))+(iGroup)] <- sm_params(x_val,data[[values]][ind],
-                                                                       param0=param0,
-                                                                       param_upLimit=param_upLimit,
-                                                                       param_lowLimit=param_lowLimit)[[4]]
-          params_list[,7][(group_num*(iSubj-1))+(iGroup)] <- sm_params(x_val,data[[values]][ind],
-                                                                       param0=param0,
-                                                                       param_upLimit=param_upLimit,
-                                                                       param_lowLimit=param_lowLimit)[[5]]
+          params_list[,3][(group_num*(iSubj-1))+(iGroup)] <- params_all[[1]]
+          params_list[,4][(group_num*(iSubj-1))+(iGroup)] <- params_all[[2]]
+          params_list[,5][(group_num*(iSubj-1))+(iGroup)] <- params_all[[3]]
+          params_list[,6][(group_num*(iSubj-1))+(iGroup)] <- params_all[[4]]
+          params_list[,7][(group_num*(iSubj-1))+(iGroup)] <- params_all[[5]]
         }
       }
     }
@@ -199,32 +182,23 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
                          data[[conditions]] == unique(cond_list)[iCond] &
                          data[[subjects]] == unique(subjects_list)[iSubj])
 
+          params_all <- sm_params(x_val,data[[values]][ind],
+                                  param0=param0,
+                                  param_upLimit=param_upLimit,
+                                  param_lowLimit=param_lowLimit,
+                                  setLinSF = setLinSF)
+
           if (length(ind)!=0) {
             params_list[,1][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- subjects_list[iSubj]
             params_list[,2][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- cond_list[iCond]
             params_list[,3][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- group_list[iGroup]
 
 
-            params_list[,4][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                                        param0=param0,
-                                                                                        param_upLimit=param_upLimit,
-                                                                                        param_lowLimit=param_lowLimit)[[1]]
-            params_list[,5][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                                        param0=param0,
-                                                                                        param_upLimit=param_upLimit,
-                                                                                        param_lowLimit=param_lowLimit)[[2]]
-            params_list[,6][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                                        param0=param0,
-                                                                                        param_upLimit=param_upLimit,
-                                                                                        param_lowLimit=param_lowLimit)[[3]]
-            params_list[,7][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                                        param0=param0,
-                                                                                        param_upLimit=param_upLimit,
-                                                                                        param_lowLimit=param_lowLimit)[[4]]
-            params_list[,8][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- sm_params(x_val,data[[values]][ind],
-                                                                                        param0=param0,
-                                                                                        param_upLimit=param_upLimit,
-                                                                                        param_lowLimit=param_lowLimit)[[5]]
+            params_list[,4][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- params_all[[1]]
+            params_list[,5][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- params_all[[2]]
+            params_list[,6][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- params_all[[3]]
+            params_list[,7][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- params_all[[4]]
+            params_list[,8][(group_num*cond_num*(iSubj-1))+(iGroup+iCond)] <- params_all[[5]]
           }
 
         }
@@ -244,5 +218,4 @@ sm_params_list <- function(data, subjects, groups, conditions, x,
   names(params_list_SF) <- c('parameters', 'spatFreq')
   return(params_list_SF)
 }
-
 
