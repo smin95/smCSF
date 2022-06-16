@@ -86,7 +86,7 @@ sm_CSF_linear <- function(mapping = NULL, data = NULL,
                    ...) {
 
   ggplot2::layer(
-    stat = StatSmCSF, data = data, mapping = mapping, geom = GeomSmCSF2,
+    stat = StatSmCSF, data = data, mapping = mapping, geom = GeomSmCSF,
     position = position, show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(n = n, na.rm = na.rm, param0 = param0,
@@ -139,42 +139,13 @@ StatSmCSF <- ggplot2::ggproto('StatSmCSF', ggplot2::Stat,
 #' @importFrom ggplot2 ggproto Geom
 #' @export
 
-GeomSmCSF <- ggplot2::ggproto('GeomSmCSF', ggplot2::Geom,
-                     default_aes = ggplot2::aes(
-                       fill = 'gray80',
-                       color = 'black',
-                       size = 1,
-                       linetype = 1,
-                       weight = 1,
-                       alpha = 0.6,
-                     ),
-
-                     setup_params = function(data, params) {
-                       params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE, ambiguous = TRUE)
-                       params
-                     },
-
-
-                     setup_data = function(data, params) {
-                       GeomLine$setup_data(data, params)
-                     },
-
-                     draw_group = function(data, panel_params, coord,
-                                           flipped_aes = FALSE) {
-
-                       path <- transform(data, alpha = NA)
-
-
-                       grid::gList(
-                         GeomLine$draw_panel(path, panel_params, coord)
-                       )
-
-                     },
-                     draw_key = ggplot2::draw_key_smooth,
-                     required_aes = c('x','y')
-)
-
-GeomSmCSF2 <- ggplot2::ggproto('GeomSmCSF2', ggplot2::GeomPath,
+GeomSmCSF <- ggplot2::ggproto('GeomSmCSF', ggplot2::GeomPath,
+                               default_aes = ggplot2::aes(
+                                 color = 'black',
+                                 size = 1,
+                                 linetype = 1,
+                                 alpha = 1
+                               ),
                                setup_params = function(data, params) {
                                  params$flipped_aes <- has_flipped_aes(data, params, ambiguous = T)
                                  params
