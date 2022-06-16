@@ -8,7 +8,7 @@ sm_CSF(..., logXY = TRUE)
 }
 \arguments{
 \item{...}{Other arguments that are passed to control for the appearance of the
-contrast sensitivity function, such as \code{alpha = 0.5} or
+contrast sensitivity function, such as
 \code{color = sm_color('blue')}.}
 
 \item{logXY}{When this argument is set to TRUE (default), the function will convert the x and y values
@@ -21,4 +21,16 @@ It plots the contrast sensitivity function.
 The function's default converts the x and y coordinates into log scales.
 
 If logXY = TRUE, the plotted function will be in log xy scales.
+}
+\examples{
+\dontrun{
+x <- c(0.6,1,2,4,8,16,24,36) # spatial frequency
+y <- c(30, 50, 35, 25, 6, 4, 2, 1) # contrast sensitivity
+df <- data.frame(x=x,y=y)
+
+# linear plot of CSF
+ggplot(data=df,aes(x,y)) +
+geom_point() +
+sm_CSF()
+}
 }

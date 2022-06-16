@@ -46,7 +46,7 @@
 #' @importFrom stats na.omit
 #'
 #' @export
-#' @example
+#' @examples
 #' \dontrun{
 #'
 #' set.seed(1)

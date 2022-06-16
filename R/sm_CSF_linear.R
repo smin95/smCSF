@@ -55,7 +55,7 @@
 #'
 #' @param ...
 #' Other arguments that are passed to control for the appearance of the
-#' contrast sensitivity function, such as `alpha = 0.5` or
+#' contrast sensitivity function, such as
 #' `color = sm_color('blue')`.
 #'
 #' @importFrom ggplot2 ggproto Geom draw_key_polygon layer Stat aes
@@ -86,7 +86,7 @@ sm_CSF_linear <- function(mapping = NULL, data = NULL,
                    ...) {
 
   ggplot2::layer(
-    stat = StatSmCSF, data = data, mapping = mapping, geom = GeomSmCSF,
+    stat = StatSmCSF, data = data, mapping = mapping, geom = GeomSmCSF2,
     position = position, show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(n = n, na.rm = na.rm, param0 = param0,
@@ -174,3 +174,18 @@ GeomSmCSF <- ggplot2::ggproto('GeomSmCSF', ggplot2::Geom,
                      required_aes = c('x','y')
 )
 
+GeomSmCSF2 <- ggplot2::ggproto('GeomSmCSF2', ggplot2::GeomPath,
+                               setup_params = function(data, params) {
+                                 params$flipped_aes <- has_flipped_aes(data, params, ambiguous = T)
+                                 params
+                               },
+
+                               extra_params = c('na.rm', 'orientation'),
+
+                               setup_data = function(data, params) {
+                                 data$flipped_aes <- params$flipped_aes
+                                 data <- flip_data(data, params$flipped_aes)
+                                 data <- data[order(data$PANEL, data$group, data$x),]
+                                 flip_data(data, params$flipped_aes)
+                               }
+)

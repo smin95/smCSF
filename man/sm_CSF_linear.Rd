@@ -62,7 +62,7 @@ in this order: 1) peak gain, 2) peak spatial frequency, 3) bandwidth, and
 4) truncation value.}
 
 \item{...}{Other arguments that are passed to control for the appearance of the
-contrast sensitivity function, such as \code{alpha = 0.5} or
+contrast sensitivity function, such as
 \code{color = sm_color('blue')}.}
 }
 \description{

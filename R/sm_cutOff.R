@@ -31,7 +31,7 @@
 #' param_lowLimit= log10(c(2, 0.2, 1, 0.02)) # lower limits of the parameters
 #' params <- sm_params(df$x, df$y, param0, param_upLimit, param_lowLimit)
 #' sm_cutOff(params[[1]], params[[2]], params[[3]]) # cutoff spatial frequency
-#' }}
+#' }
 #'
 #' @export
 #'
