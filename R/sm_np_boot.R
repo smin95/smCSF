@@ -11,7 +11,7 @@
 #' as the tested spatial frequencies.
 #'
 #' @param n
-#' Number of bootstraps (i.e., simulated observers). The default is set to 51.
+#' Number of bootstraps (i.e., simulated observers). The default is set to 1000.
 #'
 #' @importFrom stats optim
 #' @export
@@ -35,6 +35,7 @@
 #' }
 #'
 sm_np_boot <- function(param_list, n = 51) {
+  #set.seed(seed)
 
   params_df <- param_list[[1]]
   sf_list <- param_list[[2]]

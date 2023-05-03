@@ -11,7 +11,7 @@ sm_np_boot(param_list, n = 51)
 qCSF parameters of all observers, experimental conditions and groups, as well
 as the tested spatial frequencies.}
 
-\item{n}{Number of bootstraps (i.e., simulated observers). The default is set to 51.}
+\item{n}{Number of bootstraps (i.e., simulated observers). The default is set to 1000.}
 }
 \description{
 This function randomly samples qCSF parameters from observers, then generates
