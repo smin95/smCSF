@@ -2,13 +2,13 @@ Package: smCSF
 Type: Package
 Title: smCSF - a ggplot2 extension for drawing the contrast sensitivity function
 Version: 0.1.0
-Author:  Seung Hyun (Sam) Min
+Author: Seung Hyun (Sam) Min
 Maintainer: Seung Hyun (Sam) Min <seung.min@mail.mcgill.ca>
 Description: smCSF is a package that directly extends ggplot2. That is, it allows the user to plot the contrast sensitivity function easily by following the rules of ggplot2. 
 License: MIT + file LICENSE 
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.2
 Roxygen: list(markdown = TRUE)
 Suggests:
   rlang

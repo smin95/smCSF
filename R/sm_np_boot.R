@@ -16,7 +16,6 @@
 #' @param seed
 #' This determines the seed for generating random numbers.
 #'
-#' @return
 #' @importFrom stats optim
 #' @export
 #'
