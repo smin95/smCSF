@@ -11,7 +11,7 @@
 #' as the tested spatial frequencies.
 #'
 #' @param n
-#' Number of bootstraps (i.e., simulated observers)
+#' Number of bootstraps (i.e., simulated observers). The default is set to 1000.
 #'
 #' @param seed
 #' This determines the seed for generating random numbers.
@@ -38,7 +38,7 @@
 #' sm_np_boot(res, 1000)
 #' }
 #'
-sm_np_boot <- function(param_list, n, seed=2223) {
+sm_np_boot <- function(param_list, n = 1000, seed=2223) {
   set.seed(seed)
 
   params_df <- param_list[[1]]
