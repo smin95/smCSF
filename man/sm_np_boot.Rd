@@ -4,16 +4,14 @@
 \alias{sm_np_boot}
 \title{Non-parametric bootstrapping with replacement}
 \usage{
-sm_np_boot(param_list, n = 1000, seed = 2223)
+sm_np_boot(param_list, n = 51)
 }
 \arguments{
 \item{param_list}{This is the result from sm_param_list(), which is a list that contains
 qCSF parameters of all observers, experimental conditions and groups, as well
 as the tested spatial frequencies.}
 
-\item{n}{Number of bootstraps (i.e., simulated observers). The default is set to 1000.}
-
-\item{seed}{This determines the seed for generating random numbers.}
+\item{n}{Number of bootstraps (i.e., simulated observers). The default is set to 51.}
 }
 \description{
 This function randomly samples qCSF parameters from observers, then generates
