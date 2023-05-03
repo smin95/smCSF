@@ -175,7 +175,7 @@ GeomSmAreaCSF <- ggplot2::ggproto('GeomSmAreaCSF', ggplot2::Geom,
                            fill = 'gray80',
                            color = NA,
                            size = 0.5,
-                           linetype = 1,
+                           linetype = 0,
                            alpha = NA
                          ),
 
