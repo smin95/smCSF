@@ -61,8 +61,6 @@
 sm_np_boot <- function(param_list, n = 50, nSim = 1000,
                        ci_range = 0.95, fa = TRUE) {
 
-
-
   upper_ci <- (1+ci_range)/2
   lower_ci <- (1-ci_range)/2
   #set.seed(seed)
@@ -85,9 +83,6 @@ sm_np_boot <- function(param_list, n = 50, nSim = 1000,
     return(as.matrix(qCSF_est))
   })
 
-  res_nfact <- lapply(1:nSim, function(iSim) {
-    fa.parallel(sens.sim.list[[iSim]])$nfact
-  })
 
   if (fa == TRUE) {
     res_all <- lapply(1:nSim, function(iSim) { # eigenval from FA
