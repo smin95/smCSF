@@ -54,8 +54,7 @@ group_by(Subject,SpatialFreq) \%>\%
                      values = 'Sensitivity',
                      data = df)
 
-# samples 1000 times with replacement
-sm_np_boot(res, 1000)
+sm_np_boot(res, n=51)
 }
 
 }

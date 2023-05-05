@@ -55,8 +55,7 @@
 #'                      values = 'Sensitivity',
 #'                      data = df)
 #'
-#' # samples 1000 times with replacement
-#' sm_np_boot(res, 1000)
+#' sm_np_boot(res, n=51)
 #' }
 #'
 sm_np_boot <- function(param_list, n = 50, nSim = 1000,
@@ -96,7 +95,7 @@ sm_np_boot <- function(param_list, n = 50, nSim = 1000,
     })
 
     rnd_all <- lapply(1:nSim, function(iSim) { # eigenval from PC
-      fa.parallel(sens.sim.list[[iSim]])$fa.sim
+      fa.parallel(sens.sim.list[[iSim]], plot=FALSE)$fa.sim
     })
 
   } else { # PCA
@@ -122,8 +121,8 @@ sm_np_boot <- function(param_list, n = 50, nSim = 1000,
 
 
   df2 <- rowMeans(sapply(rnd_all, unlist, 1)) # mean of the eigenvalues from random matrices
-  df2_down <- apply(sapply(rnd_all,unlist,1),1,quantile,0.025) # lower 95% CI
-  df2_up <- apply(sapply(rnd_all,unlist,1),1,quantile,0.9755) # upper 95% CI
+  df2_down <- apply(sapply(rnd_all,unlist,1),1,quantile,lower_ci) # lower 95% CI
+  df2_up <- apply(sapply(rnd_all,unlist,1),1,quantile,upper_ci) # upper 95% CI
 
   df2_all <- data.frame(mean = df2,
                         downCI = df2_down,
