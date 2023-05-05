@@ -111,7 +111,7 @@ sm_np_boot <- function(param_list, n = 50, nSim = 1000,
   df1_all <- data.frame(mean = df1,
                         downCI = df1_down,
                         upCI = df1_up,
-                        group = 'bootstrap',
+                        group = 'data',
                         nFac = seq(length(df1)))
 
 
