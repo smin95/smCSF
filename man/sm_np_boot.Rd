@@ -2,22 +2,44 @@
 % Please edit documentation in R/sm_np_boot.R
 \name{sm_np_boot}
 \alias{sm_np_boot}
-\title{Non-parametric bootstrapping with replacement}
+\title{Non-parametric bootstrapping with replacement for contrast sensitivity data}
 \usage{
-sm_np_boot(param_list, n = 51)
+sm_np_boot(param_list, n = 50, nSim = 1000, ci_range = 0.95, fa = TRUE)
 }
 \arguments{
 \item{param_list}{This is the result from sm_param_list(), which is a list that contains
 qCSF parameters of all observers, experimental conditions and groups, as well
 as the tested spatial frequencies.}
 
-\item{n}{Number of bootstraps (i.e., simulated observers). The default is set to 1000.}
+\item{n}{Number of sample for bootstrap. The default is set to 50.}
+
+\item{nSim}{Number of non-parametric bootstrap simulations (number of samplings)}
+
+\item{ci_range}{Range of the confidence interval. The default is set to 0.95.}
+
+\item{fa}{If set to TRUE (default), it computes eigenvalues from the factor model,
+which accounts for the random error. If FALSE, it computes from the principal component.}
 }
 \description{
 This function randomly samples qCSF parameters from observers, then generates
 fitted values as a function of spatial frequency using the sampled qCSF parameters.
 It returns a matrix, which can then be directly used for functions that perform
 factor analysis.
+}
+\details{
+It then computes the eigenvalues from factor analysis/principal component for many
+iterations, and the returns the mean and the 95\% confidence intervals of the
+eigenvalues. Eigenvalues represent the proportion of the total variance that can be
+described by a specific factor/principal component. The higher the eigenvalue of the factor/
+component, the more important it is in the data.
+
+If the eigenvalues' 95\% confidence interval from the bootstrap does not overlap with
+the eigenvalues from the random matrix (i.e., significantly higher than the eigenvalues from the
+random matrix), then it means that the factors are significant
+and should be included in the model/dimension reduction.
+
+These values are returned as a data frame, which can then be used to plot
+the eigenvalues using ggplot2.
 }
 \examples{
 \dontrun{

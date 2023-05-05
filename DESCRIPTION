@@ -16,5 +16,6 @@ Imports:
   ggplot2,
   zoo,
   grid,
-  stats
+  stats,
+  psych,
 URL: https://www.smin95.com
