@@ -38,6 +38,7 @@
 #' which accounts for the random error. If FALSE, it computes from the principal component.
 #' @importFrom stats quantile
 #' @importFrom psych fa.parallel scree
+#' @importFrom utils capture.output
 #'
 #' @export
 #'
@@ -61,6 +62,7 @@
 sm_np_boot <- function(param_list, n = 50, nSim = 1000,
                        ci_range = 0.95, fa = TRUE) {
 
+
   upper_ci <- (1+ci_range)/2
   lower_ci <- (1-ci_range)/2
   #set.seed(seed)
@@ -83,25 +85,32 @@ sm_np_boot <- function(param_list, n = 50, nSim = 1000,
     return(as.matrix(qCSF_est))
   })
 
+  suppressMessages({
+    suppressWarnings({
+      if (fa == TRUE) {
+        res_all <- lapply(1:nSim, function(iSim) { # eigenval from FA
+          invisible(capture.output(a <- scree(sens.sim.list[[iSim]], factors=T, pc = F)$fv))
+          a
+        })
 
-  if (fa == TRUE) {
-    res_all <- lapply(1:nSim, function(iSim) { # eigenval from FA
-      scree(sens.sim.list[[iSim]], factors=T, pc = F)$fv
-    })
+        rnd_all <- lapply(1:nSim, function(iSim) { # eigenval from PC
+          invisible(capture.output(a <- fa.parallel(sens.sim.list[[iSim]], plot=FALSE)$fa.sim))
+          a
+        })
 
-    rnd_all <- lapply(1:nSim, function(iSim) { # eigenval from PC
-      fa.parallel(sens.sim.list[[iSim]], plot=FALSE)$fa.sim
-    })
+      } else { # PCA
+        res_all <- lapply(1:nSim, function(iSim) { # eigenval from PCA random
+          invisible(capture.output(a <- scree(sens.sim.list[[iSim]], factors=F, pc = T)$pcv))
+          a
+        })
 
-  } else { # PCA
-    res_all <- lapply(1:nSim, function(iSim) { # eigenval from PCA random
-      scree(sens.sim.list[[iSim]], factors=F, pc = T)$pcv
+        rnd_all <- lapply(1:nSim, function(iSim) { # eigenval from PC random
+          invisible(capture.output(a <- fa.parallel(sens.sim.list[[iSim]])$pc.sim))
+          a
+        })
+      }
     })
-
-    rnd_all <- lapply(1:nSim, function(iSim) { # eigenval from PC random
-      fa.parallel(sens.sim.list[[iSim]])$pc.sim
-    })
-  }
+  })
 
 
   df1 <- rowMeans(sapply(res_all, unlist, 1)) # mean from real matrices
