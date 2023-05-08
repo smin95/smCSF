@@ -18,4 +18,6 @@ Imports:
   grid,
   stats,
   psych,
+  smplot2,
+  cowplot
 URL: https://www.smin95.com

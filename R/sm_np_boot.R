@@ -1,11 +1,15 @@
-#' Non-parametric bootstrapping with replacement for contrast sensitivity data
+#' Non-parametric bootstrap factor analysis for contrast sensitivity data
 #'
 #' This function randomly samples qCSF parameters from observers, then generates
 #' fitted values as a function of spatial frequency using the sampled qCSF parameters.
-#' It returns a matrix, which can then be directly used for functions that perform
-#' factor analysis.
+#' Then using the fitted values, it performs parallel analysis to generate eigenvalues
+#' both from the data and random matrices. For more information about parallel analysis
+#' please check out `fa.parallel` from `psych` package.
 #'
-#' It then computes the eigenvalues from factor analysis/principal component for many
+#' It returns a data frame, which can then be directly used to plot the eigenvalues
+#' using `sm_plot_boot`, which is an wrapper around ggplot2.
+#'
+#' Essentially, it computes the eigenvalues from factor analysis/principal component for many
 #' iterations, and the returns the mean and the 95% confidence intervals of the
 #' eigenvalues. Eigenvalues represent the proportion of the total variance that can be
 #' described by a specific factor/principal component. The higher the eigenvalue of the factor/
@@ -16,8 +20,6 @@
 #' random matrix), then it means that the factors are significant
 #' and should be included in the model/dimension reduction.
 #'
-#' These values are returned as a data frame, which can then be used to plot
-#' the eigenvalues using ggplot2.
 #'
 #' @param param_list
 #' This is the result from sm_param_list(), which is a list that contains

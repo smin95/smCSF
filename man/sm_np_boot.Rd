@@ -2,7 +2,7 @@
 % Please edit documentation in R/sm_np_boot.R
 \name{sm_np_boot}
 \alias{sm_np_boot}
-\title{Non-parametric bootstrapping with replacement for contrast sensitivity data}
+\title{Non-parametric bootstrap factor analysis for contrast sensitivity data}
 \usage{
 sm_np_boot(param_list, n = 50, nSim = 1000, ci_range = 0.95, fa = TRUE)
 }
@@ -23,11 +23,15 @@ which accounts for the random error. If FALSE, it computes from the principal co
 \description{
 This function randomly samples qCSF parameters from observers, then generates
 fitted values as a function of spatial frequency using the sampled qCSF parameters.
-It returns a matrix, which can then be directly used for functions that perform
-factor analysis.
+Then using the fitted values, it performs parallel analysis to generate eigenvalues
+both from the data and random matrices. For more information about parallel analysis
+please check out \code{fa.parallel} from \code{psych} package.
 }
 \details{
-It then computes the eigenvalues from factor analysis/principal component for many
+It returns a data frame, which can then be directly used to plot the eigenvalues
+using \code{sm_plot_boot}, which is an wrapper around ggplot2.
+
+Essentially, it computes the eigenvalues from factor analysis/principal component for many
 iterations, and the returns the mean and the 95\% confidence intervals of the
 eigenvalues. Eigenvalues represent the proportion of the total variance that can be
 described by a specific factor/principal component. The higher the eigenvalue of the factor/
@@ -37,9 +41,6 @@ If the eigenvalues' 95\% confidence interval from the bootstrap does not overlap
 the eigenvalues from the random matrix (i.e., significantly higher than the eigenvalues from the
 random matrix), then it means that the factors are significant
 and should be included in the model/dimension reduction.
-
-These values are returned as a data frame, which can then be used to plot
-the eigenvalues using ggplot2.
 }
 \examples{
 \dontrun{
