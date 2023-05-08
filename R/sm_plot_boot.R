@@ -67,16 +67,16 @@ sm_plot_boot <- function(boot_res,
 
 
   fig <-  ggplot(data = boot_res,
-                 aes(x = boot_res$nFac, y = boot_res$mean,
-                     group = boot_res$group,
-                     color = boot_res$group,
-                     shape = boot_res$group)) +
+                 aes(x = nFac, y = mean,
+                     group = group,
+                     color = group,
+                     shape = group)) +
     geom_point(size = point_size,
                position = position_dodge(width = dodge_width)) +
     geom_line(linewidth = line_width,
               position = position_dodge(width = dodge_width)) +
-    geom_linerange(aes(ymin = boot_res$downCI,
-                       ymax = boot_res$upCI),
+    geom_linerange(aes(ymin = downCI,
+                       ymax = upCI),
                    linewidth = line_width,
                    position = position_dodge(width = dodge_width),
                    show.legend = FALSE) +
@@ -94,3 +94,6 @@ sm_plot_boot <- function(boot_res,
   return(fig)
 }
 
+globalVariables(c('ggplot', 'geom_point', 'geom_line',
+                  'upCI', 'downCI', 'mean', 'nFac',
+                  'group','position','position_dodge'))
