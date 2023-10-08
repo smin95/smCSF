@@ -4,14 +4,27 @@
 \alias{sm_np_boot}
 \title{Non-parametric bootstrap factor analysis for contrast sensitivity data}
 \usage{
-sm_np_boot(param_list, n = 50, nSim = 1000, ci_range = 0.95, fa = TRUE)
+sm_np_boot(
+  param_list,
+  sf,
+  n = 50,
+  nSim = 1000,
+  ci_range = 0.95,
+  fa = TRUE,
+  addNoise = FALSE,
+  noiseSize = 1e-06
+)
 }
 \arguments{
 \item{param_list}{This is the result from sm_param_list(), which is a list that contains
 qCSF parameters of all observers, experimental conditions and groups, as well
 as the tested spatial frequencies.}
 
-\item{n}{Number of sample for bootstrap. The default is set to 50.}
+\item{sf}{Numerical vector that contains tested spatial frequencies. If missing,
+it will automatically be filled with tested spatial frequencies based on the
+data frame.}
+
+\item{n}{Number of observers (ie sample size) for bootstrap. The default is set to 50.}
 
 \item{nSim}{Number of non-parametric bootstrap simulations (number of samplings)}
 
@@ -19,6 +32,14 @@ as the tested spatial frequencies.}
 
 \item{fa}{If set to TRUE (default), it computes eigenvalues from the factor model,
 which accounts for the random error. If FALSE, it computes from the principal component.}
+
+\item{addNoise}{If the initial attempt returns an error because the correlation matrix has NA or infinite values,
+set this to TRUE. Otherwise, set FALSE (default).}
+
+\item{noiseSize}{Degree of noise that is added to the simulated data. It uses rnorm() to generate noise,
+and noiseSize determines the mean and SD of the noise. Its default is set to 1e-6, which
+is very small to affect the raw sensitivity data but enough to prevent correlation coefficients to
+become infinite or NA.}
 }
 \description{
 This function randomly samples qCSF parameters from observers, then generates

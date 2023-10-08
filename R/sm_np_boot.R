@@ -26,8 +26,13 @@
 #' qCSF parameters of all observers, experimental conditions and groups, as well
 #' as the tested spatial frequencies.
 #'
+#' @param sf
+#'  Numerical vector that contains tested spatial frequencies. If missing,
+#'  it will automatically be filled with tested spatial frequencies based on the
+#'  data frame.
+#'
 #' @param n
-#' Number of sample for bootstrap. The default is set to 50.
+#' Number of observers (ie sample size) for bootstrap. The default is set to 50.
 #'
 #' @param nSim
 #' Number of non-parametric bootstrap simulations (number of samplings)
@@ -38,9 +43,21 @@
 #' @param fa
 #' If set to TRUE (default), it computes eigenvalues from the factor model,
 #' which accounts for the random error. If FALSE, it computes from the principal component.
-#' @importFrom stats quantile
+#'
+#' @param addNoise
+#' If the initial attempt returns an error because the correlation matrix has NA or infinite values,
+#' set this to TRUE. Otherwise, set FALSE (default).
+#'
+#' @param noiseSize
+#' Degree of noise that is added to the simulated data. It uses rnorm() to generate noise,
+#' and noiseSize determines the mean and SD of the noise. Its default is set to 1e-6, which
+#' is very small to affect the raw sensitivity data but enough to prevent correlation coefficients to
+#' become infinite or NA.
+#'
+#' @importFrom stats quantile rnorm
 #' @importFrom psych fa.parallel scree
 #' @importFrom utils capture.output
+#' @importFrom pracma zeros
 #'
 #' @export
 #'
@@ -61,8 +78,9 @@
 #' sm_np_boot(res, n=51)
 #' }
 #'
-sm_np_boot <- function(param_list, n = 50, nSim = 1000,
-                       ci_range = 0.95, fa = TRUE) {
+sm_np_boot <- function(param_list, sf, n = 50, nSim = 1000,
+                       ci_range = 0.95, fa = TRUE, addNoise = FALSE,
+                       noiseSize = 1e-6) {
 
 
   upper_ci <- (1+ci_range)/2
@@ -70,7 +88,13 @@ sm_np_boot <- function(param_list, n = 50, nSim = 1000,
   #set.seed(seed)
 
   params_df <- param_list[[1]]
-  sf_list <- param_list[[2]]
+
+  if (missing(sf)) {
+    sf_list <- param_list[[2]]
+  } else {
+    sf_list <- sf
+  }
+
 
   sens.sim.list <- lapply(1:nSim, function(i) {
 
@@ -79,10 +103,17 @@ sm_np_boot <- function(param_list, n = 50, nSim = 1000,
     logOctveWidth.i <- sample(params_df$logOctaveWidth, n, replace=TRUE)
     logTrunc.i <- sample(params_df$logGain, n, replace=TRUE)
 
+    if (addNoise == TRUE) {
+      addNoise <- matrix(rnorm(length(sf_list)*n,1e-6,1e-6),
+                         ncol=length(sf_list), nrow=n)
+    } else {
+      addNoise <- zeros(n,length(sf_list))
+    }
+
 
     qCSF_est <- sapply(sf_list, function(sf) {
       10^sm_findQCSF(log10(sf), logGain.i, logPeakSF.i, logOctveWidth.i,
-                     logTrunc.i)})
+                     logTrunc.i)+addNoise})
 
     return(as.matrix(qCSF_est))
   })
@@ -91,23 +122,23 @@ sm_np_boot <- function(param_list, n = 50, nSim = 1000,
     suppressWarnings({
       if (fa == TRUE) {
         res_all <- lapply(1:nSim, function(iSim) { # eigenval from FA
-          invisible(capture.output(a <- scree(sens.sim.list[[iSim]], factors=T, pc = F)$fv))
+          invisible(capture.output(a <- fa.parallel(sens.sim.list[[iSim]], plot=FALSE)$fa.values))
           a
         })
 
-        rnd_all <- lapply(1:nSim, function(iSim) { # eigenval from PC
+        rnd_all <- lapply(1:nSim, function(iSim) { # eigenval from FA
           invisible(capture.output(a <- fa.parallel(sens.sim.list[[iSim]], plot=FALSE)$fa.sim))
           a
         })
 
       } else { # PCA
         res_all <- lapply(1:nSim, function(iSim) { # eigenval from PCA random
-          invisible(capture.output(a <- scree(sens.sim.list[[iSim]], factors=F, pc = T)$pcv))
+          invisible(capture.output(a <- fa.parallel(sens.sim.list[[iSim]], plot=FALSE)$pc.values))
           a
         })
 
         rnd_all <- lapply(1:nSim, function(iSim) { # eigenval from PC random
-          invisible(capture.output(a <- fa.parallel(sens.sim.list[[iSim]])$pc.sim))
+          invisible(capture.output(a <- fa.parallel(sens.sim.list[[iSim]], plot=FALSE)$pc.sim))
           a
         })
       }

@@ -19,5 +19,6 @@ Imports:
   stats,
   psych,
   smplot2,
-  cowplot
+  cowplot,
+  pracma
 URL: https://www.smin95.com
