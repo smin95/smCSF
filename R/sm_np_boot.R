@@ -104,7 +104,7 @@ sm_np_boot <- function(param_list, sf, n = 50, nSim = 1000,
     logTrunc.i <- sample(params_df$logGain, n, replace=TRUE)
 
     if (addNoise == TRUE) {
-      addNoise <- matrix(rnorm(length(sf_list)*n,1e-6,1e-6),
+      addNoise <- matrix(rnorm(length(sf_list)*n, noiseSize, noiseSize),
                          ncol=length(sf_list), nrow=n)
     } else {
       addNoise <- zeros(n,length(sf_list))
