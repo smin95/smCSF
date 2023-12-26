@@ -11,7 +11,6 @@ sm_np_boot(
   nSim = 1000,
   ci_range = 0.95,
   fa = TRUE,
-  addNoise = FALSE,
   noiseSize = 1e-06
 )
 }
@@ -32,9 +31,6 @@ data frame.}
 
 \item{fa}{If set to TRUE (default), it computes eigenvalues from the factor model,
 which accounts for the random error. If FALSE, it computes from the principal component.}
-
-\item{addNoise}{If the initial attempt returns an error because the correlation matrix has NA or infinite values,
-set this to TRUE. Otherwise, set FALSE (default).}
 
 \item{noiseSize}{Degree of noise that is added to the simulated data. It uses rnorm() to generate noise,
 and noiseSize determines the mean and SD of the noise. Its default is set to 1e-6, which
