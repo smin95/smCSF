@@ -44,9 +44,6 @@
 #' If set to TRUE (default), it computes eigenvalues from the factor model,
 #' which accounts for the random error. If FALSE, it computes from the principal component.
 #'
-#' @param addNoise
-#' If the initial attempt returns an error because the correlation matrix has NA or infinite values,
-#' set this to TRUE. Otherwise, set FALSE (default).
 #'
 #' @param noiseSize
 #' Degree of noise that is added to the simulated data. It uses rnorm() to generate noise,
@@ -79,7 +76,7 @@
 #' }
 #'
 sm_np_boot <- function(param_list, sf, n = 50, nSim = 1000,
-                       ci_range = 0.95, fa = TRUE, addNoise = FALSE,
+                       ci_range = 0.95, fa = TRUE,
                        noiseSize = 1e-6) {
 
 
@@ -103,17 +100,9 @@ sm_np_boot <- function(param_list, sf, n = 50, nSim = 1000,
     logOctveWidth.i <- sample(params_df$logOctaveWidth, n, replace=TRUE)
     logTrunc.i <- sample(params_df$logGain, n, replace=TRUE)
 
-    if (addNoise == TRUE) {
-      addNoise <- matrix(rnorm(length(sf_list)*n, noiseSize, noiseSize),
-                         ncol=length(sf_list), nrow=n)
-    } else {
-      addNoise <- zeros(n,length(sf_list))
-    }
-
-
     qCSF_est <- sapply(sf_list, function(sf) {
       10^sm_findQCSF(log10(sf), logGain.i, logPeakSF.i, logOctveWidth.i,
-                     logTrunc.i)+addNoise})
+                     logTrunc.i)})
 
     return(as.matrix(qCSF_est))
   })
